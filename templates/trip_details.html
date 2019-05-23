@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"> -->
+        <style>
+            a{
+                text-decoration: underline;
+            }
+            h4{
+                display: block;
+            }
+            #trip_info{
+                padding: 5px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8 text-left">
+                    <h2>Hello {{context.user.name}}! Read About this trip!</h2>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a href="/home">Home</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div>
+            <div class="row">
+                <!-- work on join statements in sql -->
+                {% for trip in context2.trips %}
+                <div class="col-md-8">
+                    <h4>{{trip['destination']}}</h4>
+                    <div class="border border-secondary" id="trip_info">
+                        <p>Start Date: {{trip['start_date']}}</p>
+                        <p>End Date: {{trip['end_date']}} </p>
+                        <p>Created On: {{trip['created_at']}}</p>
+                        <p>Last Updated: {{trip['updated_at']}}</p>
+                        <p>Plan: {{trip['plan']}} </p>
+                        {% for user in context3.trips2 %}
+                        <p>Created by: {{user['first_name']}} </p>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="row">
+                <!-- BLACK BELT! -->
+                <div class="col-md-6 border border-secondary">
+                    <p>People who've joined the trip:</p>
+                    <!-- add jinja template here, join from other tables -->
+                    <p>PLACEHOLDER</p>
+                    <p>PLACEHOLDER</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<!DOCTYPE html>

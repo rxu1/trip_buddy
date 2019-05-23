@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"> -->
+        <style>
+            #create{
+                box-shadow: 0px 3px 3px 0px #090909;
+                padding: 3px;
+                color: black;
+            }
+            #logout{
+                margin-right: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <h2>Hello {{context.user.name}}!</h2>
+                </div>
+                <div class="col-md-6 text-right">
+                    <a href="/logout" id="logout">Logout</a>
+                    <a id="create" href="/create_trip">Create a new trip!</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Your Trips:</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Plan</th>
+                                <th scope="col">Actions</th>
+                                <th scope="col">User ID</th>
+                                <th scope="col">Trip ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- jinja for loop through the user's trip_info -->
+                            {% for trip in context2.trips %}
+                                <tr>
+                                    <td><a href="/trip_details/{{ trip['trip_id']}}">{{trip['destination']}}</a></td>
+                                    <td>{{trip['start_date']}}</td>
+                                    <td>{{trip['end_date']}}</td>
+                                    <td>{{trip['plan']}}</td>
+                                    <!-- place action in edit and delete button -->
+                                    <td>
+                                        <form action="/edit_trip/{{trip['trip_id']}}">
+                                            <input type="submit" value="Edit" name="edit" style="background: none; border: none; color: blue; cursor: pointer; display: inline-block;">
+                                        </form>
+                                        |
+                                        <form action="/delete/{{ trip['trip_id']}}" method='POST' style="display: inline-block;">
+                                            <input type="submit" value="Delete" name="delete" style="background: none; border: none; color: blue; cursor: pointer; display: inline-block;">
+                                        </form>
+                                    <td>{{trip['user_id']}}</td>
+                                    <td>{{trip['trip_id']}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- for black-belt only if time -->
+                    <h4>Other people's trip</h4>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Destination</th>
+                                <th scope="col">Start Date</th>
+                                <th scope="col">End Date</th>
+                                <th scope="col">Plan</th>
+                                <th scope="col">Want to join?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- also a for loop in jinja for this information BLACK BELT -->
+                            <tr>
+                                <td>PLACEHOLDER</td>
+                                <td>PLACEHOLDER</td>
+                                <td>PLACEHOLDER</td>
+                                <td>PLACEHOLDER</td>
+                                <td>PLACEHOLDER button</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+<!DOCTYPE html>
